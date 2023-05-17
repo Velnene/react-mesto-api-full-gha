@@ -1,0 +1,17 @@
+.header__authorization {
+  outline: none;
+  text-decoration: none;
+  color: rgba(169, 169, 169, 1);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin-left: 24px;
+}
+
+@media screen and (max-width: 900px) {
+  .header__authorization {
+    margin-right: 30px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
