@@ -4,6 +4,7 @@ const { errors } = require('celebrate');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
 const { login, createUser } = require('./controllers/user');
 const { loginValidate, createValidate } = require('./errors/userError');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 const {
@@ -13,7 +14,7 @@ const {
 
 const { userRouter, cardRouter } = require('./routes');
 
-app.use(express.json());
+app.use(requestLogger); app.use(express.json());
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
 app.use(userRouter);
@@ -21,6 +22,8 @@ app.use(cardRouter);
 app.patch('*', (req, res) => {
   handleNotFoundUrl(req, res);
 });
+
+app.use(errorLogger);
 app.use(errors());
 
 mongoose.connect(MONGO_URL, {});
