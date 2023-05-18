@@ -14,11 +14,12 @@ const {
 
 const { userRouter, cardRouter } = require('./routes');
 
-app.use(requestLogger); app.use(express.json());
+app.use(requestLogger);
+app.use(express.json());
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
-app.use(userRouter);
-app.use(cardRouter);
+app.use('/api', userRouter);
+app.use('/api', cardRouter);
 app.patch('*', (req, res) => {
   handleNotFoundUrl(req, res);
 });
