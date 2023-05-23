@@ -12,7 +12,6 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
       'https://web-15.viktor5211.nomoredomains.monster',
     ],
   }),
