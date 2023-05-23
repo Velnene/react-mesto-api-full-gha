@@ -1,7 +1,8 @@
 export class Api {
   constructor() {
-    this._cardUrl = 'https://api.web-15.viktor5211.nomoredomains.monster//cards/';
-    this._userUrl = 'https://api.web-15.viktor5211.nomoredomains.monster//users/me/';
+    this._cardUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/cards/';
+    this._userUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/users/me/';
+    this._url = 'https://api.web-15.viktor5211.nomoredomains.monster';
     this._token = '4d30e00f-4868-4e38-a672-84cd476f7f32';
   }
 
@@ -159,7 +160,7 @@ export class Api {
   }
 
   signUp(password, email) {
-    return fetch("https://auth.nomoreparties.co/signup", {
+    return fetch(this._url + "/signup", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -177,7 +178,7 @@ export class Api {
   }
 
   signIn(password, email) {
-    return fetch("https://auth.nomoreparties.co/signin", {
+    return fetch(this._url + "/signin", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -195,7 +196,7 @@ export class Api {
   }
 
   getSign(jwt) {
-    return fetch("https://auth.nomoreparties.co/users/me", {
+    return fetch(this._url, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${jwt}`

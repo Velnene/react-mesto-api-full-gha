@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+require('dotenv').config();
 const cors = require('cors');
 const { errors } = require('celebrate');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
@@ -8,7 +9,14 @@ const { loginValidate, createValidate } = require('./errors/userError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://web-15.viktor5211.nomoredomains.monster',
+    ],
+  }),
+);
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
