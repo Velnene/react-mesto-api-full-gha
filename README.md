@@ -14,4 +14,4 @@ IP-адрес 51.250.81.246
 
 Frontend https://web-15.viktor5211.nomoredomains.monster
 
-Backend https://api.web-15.viktor5211.nomoredomains.monster/
+Backend https://api.web-15.viktor5211.nomoredomains.monster
