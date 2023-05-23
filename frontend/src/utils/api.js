@@ -1,7 +1,7 @@
 export class Api {
   constructor() {
-    this._cardUrl = 'https://mesto.nomoreparties.co/v1/cohort-59/cards/';
-    this._userUrl = 'https://nomoreparties.co/v1/cohort-59/users/me/';
+    this._cardUrl = 'https://api.web-15.viktor5211.nomoredomains.monster//cards/';
+    this._userUrl = 'https://api.web-15.viktor5211.nomoredomains.monster//users/me/';
     this._token = '4d30e00f-4868-4e38-a672-84cd476f7f32';
   }
 
