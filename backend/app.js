@@ -11,9 +11,14 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const app = express();
 app.use(
   cors({
-    origin: [
-      'https://web-15.viktor5211.nomoredomains.monster',
+    origin: ['https://web-15.viktor5211.nomoredomains.monster',
+      'http://localhost:3000',
     ],
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+    allowedHeaders: ['Content-type', 'Authorization'],
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   }),
 );
 const {
