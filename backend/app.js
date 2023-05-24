@@ -16,6 +16,7 @@ const {
 
 app.use(cors({
   origin: ['https://web-15.viktor5211.nomoredomains.monster',
+    'http://localhost:3000',
     'https://web-15.viktor5211.nomoredomains.monster/',
     'http://web-15.viktor5211.nomoredomains.monster',
     'http://web-15.viktor5211.nomoredomains.monster/'],
