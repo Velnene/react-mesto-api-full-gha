@@ -9,17 +9,14 @@ const { loginValidate, createValidate } = require('./errors/userError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-app.use(
-  cors({
-    origin: ['http://localhost:3000',
-      'https://web-15.viktor5211.nomoredomains.monster',
-    ],
-    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-    allowedHeaders: ['Content-type', 'Authorization'],
-    credentials: true,
-    optionsSuccessStatus: 204,
-  }),
-);
+app.use(cors());
+//   origin: ['http://localhost:3000',
+//     'https://web-15.viktor5211.nomoredomains.monster',
+//   ],
+//   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+//   allowedHeaders: ['Content-type', 'Authorization'],
+//   credentials: true,
+//   optionsSuccessStatus: 204,
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
