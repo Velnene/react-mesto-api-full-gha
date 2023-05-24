@@ -1,8 +1,8 @@
 export class Api {
   constructor() {
-    this._cardUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/cards/';
-    this._userUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/users/me/';
-    this._url = 'https://api.web-15.viktor5211.nomoredomains.monster';
+    this._cardUrl = 'http://api.web-15.viktor5211.nomoredomains.monster/cards/';
+    this._userUrl = 'http://api.web-15.viktor5211.nomoredomains.monster/users/me/';
+    this._url = 'http://api.web-15.viktor5211.nomoredomains.monster';
     this._token = localStorage.getItem('jwt');
   }
 
