@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors');
+// const cors = require('cors');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
@@ -17,15 +17,15 @@ const {
 app.use(express.json());
 app.use(requestLogger);
 
-app.options('*', cors({
-  origin: true,
-  credentials: true,
-}));
+// app.options('*', cors({
+//   origin: true,
+//   credentials: true,
+// }));
 
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: true,
+//   credentials: true,
+// }));
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
 app.use(userRouter);
