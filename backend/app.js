@@ -1,22 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-require('dotenv').config();
-// const cors = require('cors');
 const { errors } = require('celebrate');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
 const { login, createUser } = require('./controllers/user');
 const { loginValidate, createValidate } = require('./errors/userError');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-// app.use(cors());
-//   origin: ['http://localhost:3000',
-//     'https://web-15.viktor5211.nomoredomains.monster',
-//   ],
-//   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-//   allowedHeaders: ['Content-type', 'Authorization'],
-//   credentials: true,
-//   optionsSuccessStatus: 204,
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
@@ -24,22 +13,14 @@ const {
 
 const { userRouter, cardRouter } = require('./routes');
 
-app.use(requestLogger);
 app.use(express.json());
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
-app.use('/api', userRouter);
-app.use('/api', cardRouter);
+app.use(userRouter);
+app.use(cardRouter);
 app.patch('*', (req, res) => {
   handleNotFoundUrl(req, res);
 });
-
-app.use(errorLogger);
 app.use(errors());
 
 mongoose.connect(MONGO_URL, {});
