@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
@@ -12,6 +13,14 @@ const {
   PORT = 3000,
   MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
 } = process.env;
+
+app.use(cors({
+  origin: ['https://web-15.viktor5211.nomoredomains.monster',
+    'https://web-15.viktor5211.nomoredomains.monster/',
+    'http://web-15.viktor5211.nomoredomains.monster',
+    'http://web-15.viktor5211.nomoredomains.monster/'],
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(requestLogger);
