@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+// const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('cors');
 const { errors } = require('celebrate');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
@@ -21,7 +21,7 @@ const {
 
 const { userRouter, cardRouter } = require('./routes');
 
-app.use(requestLogger);
+// app.use(requestLogger);
 app.use(express.json());
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -36,7 +36,7 @@ app.patch('*', (req, res) => {
   handleNotFoundUrl(req, res);
 });
 
-app.use(errorLogger);
+// app.use(errorLogger);
 app.use(errors());
 
 mongoose.connect(MONGO_URL, {});
