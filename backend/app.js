@@ -14,14 +14,18 @@ const {
   MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
 } = process.env;
 
-app.use(cors({
+app.use(express.json());
+app.use(requestLogger);
+
+app.options('*', cors({
   origin: true,
   credentials: true,
 }));
 
-app.use(express.json());
-app.use(requestLogger);
-
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
 app.use(userRouter);
