@@ -10,7 +10,8 @@ const { loginValidate, createValidate } = require('./errors/userError');
 const app = express();
 app.use(cors({
   origin: ['https://web-15.viktor5211.nomoredomains.monster',
-    'https://web-15.viktor5211.nomoredomains.monster/'],
+    'https://web-15.viktor5211.nomoredomains.monster/',
+    'https://web-15.viktor5211.nomoredomains.monster/signin'],
   credentials: true,
 }));
 const {
