@@ -11,7 +11,7 @@ const { userRouter, cardRouter } = require('./routes');
 const app = express();
 const {
   PORT = 3000,
-  MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
+  MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb',
 } = process.env;
 
 app.use(express.json());
