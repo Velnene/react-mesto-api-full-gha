@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const cors = require('cors');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
@@ -9,6 +9,7 @@ const { loginValidate, createValidate } = require('./errors/userError');
 const { userRouter, cardRouter } = require('./routes');
 
 const app = express();
+app.use(cors());
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb',
