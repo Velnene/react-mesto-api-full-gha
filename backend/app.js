@@ -1,19 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 // const { requestLogger, errorLogger } = require('./middlewares/logger');
-const cors = require('cors');
+// const cors = require('cors');
 const { errors } = require('celebrate');
 const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
 const { login, createUser } = require('./controllers/user');
 const { loginValidate, createValidate } = require('./errors/userError');
 
 const app = express();
-app.use(cors({
-  origin: ['https://web-15.viktor5211.nomoredomains.monster',
-    'https://web-15.viktor5211.nomoredomains.monster/',
-    'https://web-15.viktor5211.nomoredomains.monster/signin'],
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: ['https://web-15.viktor5211.nomoredomains.monster',
+//     'https://web-15.viktor5211.nomoredomains.monster/',
+//     'https://web-15.viktor5211.nomoredomains.monster/signin'],
+//   credentials: true,
+// }));
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://0.0.0.0:27017/mestodb',
@@ -23,11 +23,11 @@ const { userRouter, cardRouter } = require('./routes');
 
 // app.use(requestLogger);
 app.use(express.json());
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+// app.get('/crash-test', () => {
+//   setTimeout(() => {
+//     throw new Error('Сервер сейчас упадёт');
+//   }, 0);
+// });
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
 app.use('/api', userRouter);
