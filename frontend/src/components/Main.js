@@ -23,6 +23,7 @@ function Main(props) {
         {Object.values(props.cards).map((card) => (
           <Card card={card}
             key={card._id}
+            owner={card.owner}
             onCardPopupOpen={props.onCardPopupOpen}
             onCardLike={props.onCardLike}
             onDeleteCard={props.onDeleteCard}
