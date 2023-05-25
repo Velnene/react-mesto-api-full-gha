@@ -58,6 +58,8 @@ function App() {
         });
       api.initialCards()
         .then((res) => {
+          console.log(cards)
+          console.log(res)
           setCards(res)
         }).catch((err) => {
           alert(err);

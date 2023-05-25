@@ -2,14 +2,14 @@ export class Api {
   constructor() {
     this._cardUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/cards/';
     this._userUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/users/me/';
-    this._url = 'https://api.web-15.viktor5211.nomoredomains.monster';
+    this._url = 'https://api.web-15.viktor5211.nomoredomains.monster/';
     this._token = localStorage.getItem('jwt');
   }
 
   getUserInfo() {
     return fetch(this._userUrl, {
       headers: {
-        authorization: this._token
+        authorization: `Bearer ${this._token}`
       }
     })
       .then((res) => {
@@ -26,7 +26,7 @@ export class Api {
     return fetch(this._userUrl, {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${this._token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -48,7 +48,7 @@ export class Api {
     return fetch(this._userUrl + "avatar/", {
       method: 'PATCH',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${this._token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -68,7 +68,7 @@ export class Api {
   initialCards() {
     return fetch(this._cardUrl, {
       headers: {
-        authorization: this._token
+        authorization: `Bearer ${this._token}`
       }
     })
       .then((res) => {
@@ -85,7 +85,7 @@ export class Api {
     return fetch(this._cardUrl + idCard, {
       method: "DELETE",
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${this._token}`,
         'Content-Type': 'application/json'
       }
     })
@@ -103,7 +103,7 @@ export class Api {
     return fetch(this._cardUrl, {
       method: 'POST',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${this._token}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -125,7 +125,7 @@ export class Api {
     return fetch(this._cardUrl + cardId + '/likes', {
       method: 'PUT',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${this._token}`,
         'Content-Type': 'application/json'
       }
     })
@@ -145,7 +145,7 @@ export class Api {
     return fetch(this._cardUrl + cardId + '/likes', {
       method: 'DELETE',
       headers: {
-        authorization: this._token,
+        authorization: `Bearer ${this._token}`,
         'Content-Type': 'application/json'
       }
     })
@@ -160,7 +160,7 @@ export class Api {
   }
 
   signUp(password, email) {
-    return fetch(this._url + "/signup", {
+    return fetch(this._url + "signup", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -178,7 +178,7 @@ export class Api {
   }
 
   signIn(password, email) {
-    return fetch(this._url + "/signin", {
+    return fetch(this._url + "signin", {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
@@ -196,7 +196,7 @@ export class Api {
   }
 
   getSign(jwt) {
-    return fetch(this._url, {
+    return fetch(this._userUrl, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${jwt}`

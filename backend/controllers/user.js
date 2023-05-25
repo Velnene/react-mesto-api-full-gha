@@ -14,7 +14,7 @@ const getUserId = (req, res) => {
   User.findById(userId)
     .then((user) => {
       if (user) {
-        res.status(OK).send({ data: user });
+        res.status(OK).send(user);
       } else {
         res.status(NotFound).send({ message: 'Запрашиваемый пользователь не найден' });
       }
@@ -31,7 +31,7 @@ const getUserId = (req, res) => {
 const getUsers = (req, res) => {
   User.find()
     .then((users) => {
-      res.send({ data: users });
+      res.send(users);
     })
     .catch(() => {
       res.status(InternalServer).send({ message: 'На сервере произошла ошибка' });
@@ -49,7 +49,7 @@ const createUser = (req, res) => {
     .then((user) => {
       const userNotPassword = user;
       delete userNotPassword.password;
-      res.status(CREATED).send({ data: userNotPassword });
+      res.status(CREATED).send(userNotPassword);
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {
@@ -67,7 +67,7 @@ const updateUser = (req, res) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(userId, { name, about }, { new: true, runValidators: true })
     .then((user) => {
-      res.status(OK).send({ data: user });
+      res.status(OK).send(user);
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {
@@ -83,7 +83,7 @@ const updateUserAvatar = (req, res) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(userId, { avatar }, { new: true, runValidators: true })
     .then((user) => {
-      res.status(OK).send({ data: user });
+      res.status(OK).send(user);
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {
@@ -104,7 +104,7 @@ const login = (req, res) => {
         return Promise.reject(new Error('Неправильные почта или пароль'));
       }
       const token = generateToken({ _id: user.id });
-      return res.send({ token });
+      return res.send(token);
     })
     .catch((err) => {
       res
@@ -116,7 +116,7 @@ const login = (req, res) => {
 const getCurrentUser = (req, res) => {
   const userId = req.user._id;
   User.findById(userId)
-    .then((user) => res.status(OK).send({ data: user }))
+    .then((user) => res.status(OK).send(user))
     .catch((err) => {
       res
         .status(401)

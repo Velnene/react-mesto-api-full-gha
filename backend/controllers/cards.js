@@ -11,8 +11,8 @@ const {
 const getCards = (req, res) => {
   Card.find()
     .populate(['owner', 'likes'])
-    .then((users) => {
-      res.status(OK).send({ data: users });
+    .then((card) => {
+      res.status(OK).send(card);
     })
     .catch(() => {
       res.status(InternalServer).send({ message: 'На сервере произошла ошибка' });
@@ -24,7 +24,7 @@ const createCard = (req, res) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner })
     .then((card) => {
-      res.status(CREATED).send({ data: card });
+      res.status(CREATED).send(card);
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {

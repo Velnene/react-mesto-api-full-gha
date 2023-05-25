@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import api from '../utils/api.js'
+import React from 'react'
 import Card from './Card';
 import { Context } from '../context/CurrentUserContext.js';
 
 function Main(props) {
   const context = React.useContext(Context)
-
   return (
     <main>
       <section className="profile">
@@ -22,7 +20,7 @@ function Main(props) {
         <button className="profile__add-button" type="button" title="добавление карточки" onClick={props.onAddPlace}></button>
       </section>
       <section className="elements">
-        {props.cards.map((card) => (
+        {Object.values(props.cards).map((card) => (
           <Card card={card}
             key={card._id}
             onCardPopupOpen={props.onCardPopupOpen}
