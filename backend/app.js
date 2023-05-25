@@ -10,7 +10,8 @@ const { userRouter, cardRouter } = require('./routes');
 
 const app = express();
 app.use(cors({
-  origin: ['http://web-15.viktor5211.nomoredomains.monster/'],
+  origin: ['http://web-15.viktor5211.nomoredomains.monster/',
+    'http://web-15.viktor5211.nomoredomains.monster'],
   credentials: true,
 }));
 const {
