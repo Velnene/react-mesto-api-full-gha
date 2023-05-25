@@ -9,7 +9,10 @@ const { loginValidate, createValidate } = require('./errors/userError');
 const { userRouter, cardRouter } = require('./routes');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ['http://web-15.viktor5211.nomoredomains.monster/'],
+  credentials: true,
+}));
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb',
@@ -18,15 +21,6 @@ const {
 app.use(express.json());
 app.use(requestLogger);
 
-// app.options('*', cors({
-//   origin: true,
-//   credentials: true,
-// }));
-
-// app.use(cors({
-//   origin: true,
-//   credentials: true,
-// }));
 app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
 app.use(userRouter);
