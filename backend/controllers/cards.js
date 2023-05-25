@@ -63,7 +63,7 @@ const addLikeikeCard = (req, res) => {
     .populate(['owner', 'likes'])
     .then((like) => {
       if (like) {
-        res.send({ data: like });
+        res.send(like);
       } else {
         res.status(NotFound).send({ message: 'Карточка не найдена' });
       }
@@ -83,7 +83,7 @@ const deleteLikeikeCard = (req, res) => {
     .populate(['owner', 'likes'])
     .then((like) => {
       if (like) {
-        res.send({ data: like });
+        res.send(like);
       } else {
         res.status(NotFound).send({ message: 'Карточка не найдена' });
       }

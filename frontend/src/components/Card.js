@@ -1,7 +1,6 @@
 import { Context } from '../context/CurrentUserContext.js';
 import React from 'react';
 function Card(props) {
-
   const card = React.useContext(Context)
   const isOwn = card._id === props.card.owner._id;
   const isLike = props.card.likes.some(like => like._id === card._id)
