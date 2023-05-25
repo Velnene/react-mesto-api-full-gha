@@ -81,7 +81,7 @@ const addLikeikeCard = (req, res) => {
 
 const deleteLikeikeCard = (req, res) => {
   const userId = req.user._id;
-  Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: userId } })
+  Card.findByIdAndUpdate(req.params.cardId, { $pull: { likes: userId } }, { new: true })
     .populate(['owner', 'likes'])
     .then((like) => {
       if (like) {
