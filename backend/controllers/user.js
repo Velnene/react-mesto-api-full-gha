@@ -116,7 +116,7 @@ const login = (req, res) => {
 const getCurrentUser = (req, res) => {
   const userId = req.user._id;
   User.findById(userId)
-    .then((user) => res.status(OK).send({ data: user }))
+    .then((user) => res.status(OK).send(user))
     .catch((err) => {
       res
         .status(401)
