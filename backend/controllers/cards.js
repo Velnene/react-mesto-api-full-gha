@@ -11,6 +11,7 @@ const {
 const getCards = (req, res) => {
   Card.find()
     .populate(['owner', 'likes'])
+    .sort({ createdAt: -1 })
     .then((card) => {
       res.status(OK).send(card);
     })
