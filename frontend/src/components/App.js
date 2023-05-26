@@ -34,6 +34,7 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
+      console.log(jwt)
       return;
     }
     else {
@@ -156,6 +157,7 @@ function App() {
     }
     api.signUp(password, email)
       .then((res) => {
+        localStorage.setItem('jwt', res.token);
         navigate('/signin');
         setPopupAuthorization(true)
         setSuccessful({ image: Successful, message: 'Вы успешно зарегистрировались!' })
