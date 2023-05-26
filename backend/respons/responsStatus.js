@@ -7,6 +7,7 @@ const InternalServer = http2.constants.HTTP_STATUS_INTERNAL_SERVER_ERROR; // 500
 const NotFound = http2.constants.HTTP_STATUS_NOT_FOUND; // 404
 const Conflict = http2.constants.HTTP_STATUS_CONFLICT; // 409
 const Forbidden = http2.constants.HTTP_STATUS_FORBIDDEN; // 403
+const Unauthorized = http2.constants.HTTP_STATUS_UNAUTHORIZED; // 401
 
 const handleNotFoundUrl = (req, res) => {
   res.status(NotFound).send({ message: 'Неверный путь' });
@@ -14,6 +15,7 @@ const handleNotFoundUrl = (req, res) => {
 
 module.exports = {
   Forbidden,
+  Unauthorized,
   BadRequest,
   InternalServer,
   NotFound,
