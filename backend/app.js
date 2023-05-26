@@ -22,7 +22,6 @@ app.use(cors({
     'https://api.web-15.viktor5211.nomoredomains.monster/signup',
     'https://api.web-15.viktor5211.nomoredomains.monster/users/me/',
     'https://api.web-15.viktor5211.nomoredomains.monster/cardss'],
-  credentials: true,
 }));
 const {
   PORT = 3000,
