@@ -96,16 +96,12 @@ const login = (req, res, next) => {
     .select('+password')
     .then((user) => {
       if (!user) {
-        next(new BadRequestError('Неправильные почта или пароль'));
+        next(new UnauthorizedError('Неправильные почта или пароль'));
       }
       const token = generateToken({ _id: user.id });
       return res.send({ token });
     })
-    .catch((e) => {
-      if (res.status === 401) {
-        next(new UnauthorizedError('Не авторизован пользователь'));
-      } return next(e);
-    });
+    .catch(next);
 };
 
 const getCurrentUser = (req, res, next) => {
