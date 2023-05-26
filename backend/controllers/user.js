@@ -46,7 +46,7 @@ const createUser = (req, res, next) => {
   }
   return User.findOne({ email }).then((user) => {
     if (user) {
-      throw ConflictError('Email уже зарегистрирован');
+      throw new ConflictError('Email уже зарегистрирован');
     }
     bcrypt.hash(req.body.password, 10);
   })
@@ -96,7 +96,7 @@ const login = (req, res, next) => {
     .select('+password')
     .then((user) => {
       if (!user) {
-        next(new Error('Неправильные почта или пароль'));
+        next(new BadRequestError('Неправильные почта или пароль'));
       }
       const token = generateToken({ _id: user.id });
       return res.send({ token });
