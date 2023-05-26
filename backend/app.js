@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const rateLimit = require('express-rate-limit')
+const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
+const { NotFoundError } = require('./errors/NotFoundError');
 const { login, createUser } = require('./controllers/user');
 const { loginValidate, createValidate } = require('./errors/userError');
 const { userRouter, cardRouter } = require('./routes');
@@ -46,8 +46,9 @@ app.post('/signin', loginValidate, login);
 app.post('/signup', createValidate, createUser);
 app.use(userRouter);
 app.use(cardRouter);
-app.patch('*', (req, res) => {
-  handleNotFoundUrl(req, res);
+
+app.use('*', (req, res, next) => {
+  next(new NotFoundError('Маршрут не найден'));
 });
 
 app.use(errorLogger);
