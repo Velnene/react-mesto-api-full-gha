@@ -4,6 +4,7 @@ const cors = require('cors');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
+const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NotFoundError } = require('./errors/NotFoundError');
 const { login, createUser } = require('./controllers/user');
@@ -53,7 +54,7 @@ app.use('*', (req, res, next) => {
 
 app.use(errorLogger);
 app.use(errors());
-
+app.use(errorHandler);
 mongoose.connect(MONGO_URL, {});
 
 app.listen(PORT, () => { });
