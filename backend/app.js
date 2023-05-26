@@ -17,7 +17,9 @@ app.use(cors({
     'https://web-15.viktor5211.nomoredomains.monster',
     'http://localhost:3001',
     'https://localhost:3001',
-    'http://web-15.viktor5211.nomoredomains.monster'],
+    'http://web-15.viktor5211.nomoredomains.monster',
+    'https://api.web-15.viktor5211.nomoredomains.monster/signin',
+    'https://api.web-15.viktor5211.nomoredomains.monster/signup'],
   credentials: true,
 }));
 const {
