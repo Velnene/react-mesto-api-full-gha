@@ -1,5 +1,5 @@
 const Card = require('../models/card');
-
+const { BadRequestError } = require('../errors/BadRequestError');
 const {
   BadRequest,
   InternalServer,
@@ -8,19 +8,20 @@ const {
   CREATED,
 } = require('../respons/responsStatus');
 
-const getCards = (req, res) => {
+const getCards = (req, res, next) => {
   Card.find()
     .populate(['owner', 'likes'])
     .sort({ createdAt: -1 })
     .then((card) => {
       res.status(OK).send(card);
     })
-    .catch(() => {
-      res.status(InternalServer).send({ message: 'На сервере произошла ошибка' });
-    });
+    .catch(next);
+  // .catch(() => {
+  // res.status(InternalServer).send({ message: 'На сервере произошла ошибка' });
+  // });
 };
 
-const createCard = (req, res) => {
+const createCard = (req, res, next) => {
   const owner = req.user._id;
   const { name, link } = req.body;
   Card.create({ name, link, owner })
@@ -30,11 +31,17 @@ const createCard = (req, res) => {
     })
     .catch((e) => {
       if (e.name === 'ValidationError') {
-        res.status(BadRequest).send({ message: 'Поля неверно заполнены' });
-      } else {
-        res.status(InternalServer).send({ message: 'На сервере произошла ошибка' });
+        return next(new BadRequestError('Переданы неверные данные.'));
       }
+      return next(e);
     });
+  // .catch((e) => {
+  //   if (e.name === 'ValidationError') {
+  //     res.status(BadRequest).send({ message: 'Поля неверно заполнены' });
+  //   } else {
+  //     res.status(InternalServer).send({ message: 'На сервере произошла ошибка' });
+  //   }
+  // });
 };
 
 const deleteCard = (req, res, next) => {
