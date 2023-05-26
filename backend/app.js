@@ -7,6 +7,7 @@ const { handleNotFoundUrl } = require('./errors/handleNotFoundUrl');
 const { login, createUser } = require('./controllers/user');
 const { loginValidate, createValidate } = require('./errors/userError');
 const { userRouter, cardRouter } = require('./routes');
+const helmet = require('helmet');
 
 const app = express();
 app.use(cors({
@@ -22,7 +23,7 @@ const {
   PORT = 3000,
   MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb',
 } = process.env;
-
+app.use(helmet());
 app.use(express.json());
 app.use(requestLogger);
 
