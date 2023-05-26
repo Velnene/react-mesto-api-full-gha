@@ -22,7 +22,9 @@ app.use(cors({
     'https://api.web-15.viktor5211.nomoredomains.monster/signup',
     'https://api.web-15.viktor5211.nomoredomains.monster/users/me/',
     'https://api.web-15.viktor5211.nomoredomains.monster/cardss'],
+  credentials: true,
 }));
+
 const {
   PORT = 3000,
   MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb',
