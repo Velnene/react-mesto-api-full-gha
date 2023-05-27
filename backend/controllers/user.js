@@ -98,7 +98,7 @@ const login = (req, res, next) => {
       if (!user) {
         next(new UnauthorizedError('Неправильные почта или пароль'));
       }
-      return bcrypt.compare(password, user.password)
+      bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
             next(new UnauthorizedError('Неправильные почта или пароль'));
