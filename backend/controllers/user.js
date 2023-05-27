@@ -94,6 +94,7 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = generateToken({ _id: user.id });
+
       res.status(OK).send({ token });
     })
     .catch(next);
@@ -107,8 +108,15 @@ const login = (req, res, next) => {
 //       if (!user) {
 //         next(new UnauthorizedError('Неправильные почта или пароль'));
 //       }
-//       const token = generateToken({ _id: user.id });
-//       return res.send({ token });
+//       return bcrypt.compare(password, user.password);
+//       // const token = generateToken({ _id: user.id });
+//       // return res.send({ token });
+//     })
+//     .then((matched) => {
+//       if (!matched) {
+//         next(new UnauthorizedError('Неправильные почта или пароль'));
+//       }
+//       res.send({ token: 'Здесь нужно отправить токен, но мы ещё не научились это делать' });
 //     })
 //     .catch(next);
 // };
