@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
     // next(new UnauthorizedError('Неправильные почта или пароль3'));
-    return res.status(401).send({ message: 'Необходима авторизация' });
+    return res.status(401).send({ message: 'Необходима авторизация3' });
   }
   const token = authorization.replace('Bearer ', '');
   let payload;
@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
     payload = jwt.verify(token, SECRET_KEY);
   } catch (err) {
     // next(new UnauthorizedError('Неправильные почта или пароль4'));
-    return res.status(401).send({ message: 'Необходима авторизация' });
+    return res.status(401).send({ message: 'Необходима авторизация4' });
   }
 
   req.user = payload;
