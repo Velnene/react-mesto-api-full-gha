@@ -95,9 +95,17 @@ const login = (req, res, next) => {
   User.findOne({ email })
     .select('+password')
     .then((user) => {
-      if (!user || !password) {
+      if (!user) {
         next(new UnauthorizedError('Неправильные почта или пароль'));
       }
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            next(new UnauthorizedError('Неправильные почта или пароль'));
+          } return user;
+        });
+    })
+    .then((user) => {
       const token = generateToken({ _id: user.id });
       return res.send({ token });
     })
