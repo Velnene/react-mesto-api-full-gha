@@ -47,7 +47,6 @@ function App() {
           }
         })
         .catch((err) => {
-          alert(jwt)
           alert(err);
         });
     }
@@ -55,19 +54,19 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-      if (loggedIn) {
-        api.getUserInfo(jwt)
-          .then((res) => {
-            setUserInfo(res);
-          }).catch((err) => {
-            alert(err);
-          });
-        api.initialCards(jwt)
-          .then((res) => {
-            setCards(res)
-          }).catch((err) => {
-            alert(err);
-          });
+    if (loggedIn) {
+      api.getUserInfo(jwt)
+        .then((res) => {
+          setUserInfo(res);
+        }).catch((err) => {
+          alert(err);
+        });
+      api.initialCards(jwt)
+        .then((res) => {
+          setCards(res)
+        }).catch((err) => {
+          alert(err);
+        });
     }
   }, [loggedIn])
 
@@ -179,12 +178,15 @@ function App() {
     if (!password || !email) {
       return;
     }
-    api.signIn(email, password)
+    return api.signIn(email, password)
       .then((res) => {
-        localStorage.setItem('jwt', res.token)
-        navigate('/');
-        setLoggedIn(true);
-        setEmail(email);
+        if (res?.token) {
+          localStorage.setItem('jwt', res.token)
+          navigate('/');
+          setLoggedIn(true);
+          setEmail(email);
+          return res;
+        }
       })
       .catch((err) => {
         setPopupAuthorization(true)
