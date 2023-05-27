@@ -91,7 +91,7 @@ const updateUserAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  return User.findUserByCredentials(password, email)
     .then((user) => {
       const token = generateToken({ _id: user.id });
 
