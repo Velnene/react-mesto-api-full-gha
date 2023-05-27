@@ -101,15 +101,21 @@ const updateUserAvatar = (req, res, next) => {
 // };
 
 const login = (req, res, next) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
   User.findOne({ email })
     .select('+password')
     .then((user) => {
       if (!user) {
         next(new UnauthorizedError('Неправильные почта или пароль'));
       }
-      const token = generateToken({ _id: user.id });
-      return res.send({ token });
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            throw new UnauthorizedError('Неправильные почта или пароль2');
+          }
+          const token = generateToken({ _id: user.id });
+          return res.send({ token });
+        });
     })
     .catch(next);
 };
