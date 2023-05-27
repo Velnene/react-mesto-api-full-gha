@@ -91,16 +91,15 @@ const updateUserAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-
   User.findOne({ email })
     .select('+password')
     .then((user) => {
       if (!user) {
         next(new UnauthorizedError('Неправильные почта или пароль'));
-      } return bcrypt.compare(password, user.password)
+      } bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            next(new UnauthorizedError('Неправильные почта или пароль'));
+            next(new UnauthorizedError('Неправильные почта или пароль2'));
           }
           const token = generateToken({ _id: user.id });
           return res.send({ token });
