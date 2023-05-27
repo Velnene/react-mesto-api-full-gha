@@ -90,12 +90,12 @@ const updateUserAvatar = (req, res, next) => {
 };
 
 const login = (req, res, next) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
 
   User.findOne({ email })
     .select('+password')
     .then((user) => {
-      if (!user) {
+      if (!user || !password) {
         next(new UnauthorizedError('Неправильные почта или пароль'));
       }
       const token = generateToken({ _id: user.id });
