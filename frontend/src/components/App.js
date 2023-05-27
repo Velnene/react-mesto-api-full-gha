@@ -54,11 +54,6 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      console.log(jwt)
-      return;
-    }
-    else {
       if (loggedIn) {
         api.getUserInfo(jwt)
           .then((res) => {
@@ -72,7 +67,6 @@ function App() {
           }).catch((err) => {
             alert(err);
           });
-      }
     }
   }, [loggedIn])
 
