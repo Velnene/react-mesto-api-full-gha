@@ -89,16 +89,6 @@ const updateUserAvatar = (req, res, next) => {
     });
 };
 
-// const login = (req, res, next) => {
-//   const { email, password } = req.body;
-//   return User.findUserByCredentials(email, password)
-//     .then((user) => {
-//       const token = generateToken({ _id: user.id });
-//       res.status(OK).send({ token });
-//     })
-//     .catch(next);
-// };
-
 const login = (req, res, next) => {
   const { email } = req.body;
 
