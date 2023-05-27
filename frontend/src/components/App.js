@@ -155,11 +155,11 @@ function App() {
     });
   }
 
-  function handleRegister(password, email) {
+  function handleRegister(email, password) {
     if (!password || !email) {
       return;
     }
-    api.signUp(password, email)
+    api.signUp(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
         navigate('/signin');
@@ -174,11 +174,11 @@ function App() {
       })
   }
 
-  function handleLogin(password, email) {
+  function handleLogin(email, password) {
     if (!password || !email) {
       return;
     }
-    api.signIn(password, email)
+    api.signIn(email, password)
       .then((res) => {
         localStorage.setItem('jwt', res.token)
         navigate('/');
