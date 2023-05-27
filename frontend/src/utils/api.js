@@ -3,7 +3,6 @@ export class Api {
     this._cardUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/cards/';
     this._userUrl = 'https://api.web-15.viktor5211.nomoredomains.monster/users/me/';
     this._url = 'https://api.web-15.viktor5211.nomoredomains.monster/';
-    this._token = localStorage.getItem('jwt');
   }
 
   getUserInfo(jwt) {
@@ -22,11 +21,11 @@ export class Api {
       })
   }
 
-  setUserInfo({ name, profession }) {
+  setUserInfo({ name, profession }, jwt) {
     return fetch(this._userUrl, {
       method: 'PATCH',
       headers: {
-        authorization: `Bearer ${this._token}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -44,11 +43,11 @@ export class Api {
       })
   }
 
-  changeUserAvatar(data) {
+  changeUserAvatar(data, jwt) {
     return fetch(this._userUrl + "avatar/", {
       method: 'PATCH',
       headers: {
-        authorization: `Bearer ${this._token}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -81,11 +80,11 @@ export class Api {
       })
   }
 
-  deleteCard(idCard) {
+  deleteCard(idCard, jwt) {
     return fetch(this._cardUrl + idCard, {
       method: "DELETE",
       headers: {
-        authorization: `Bearer ${this._token}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     })
@@ -99,11 +98,11 @@ export class Api {
       })
   }
 
-  setNewCard({ http, place }) {
+  setNewCard({ http, place }, jwt) {
     return fetch(this._cardUrl, {
       method: 'POST',
       headers: {
-        authorization: `Bearer ${this._token}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -121,11 +120,11 @@ export class Api {
       })
   }
 
-  addLike(cardId) {
+  addLike(cardId, jwt) {
     return fetch(this._cardUrl + cardId + '/likes', {
       method: 'PUT',
       headers: {
-        authorization: `Bearer ${this._token}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     })
@@ -141,11 +140,11 @@ export class Api {
 
 
 
-  deleteLike(cardId) {
+  deleteLike(cardId, jwt) {
     return fetch(this._cardUrl + cardId + '/likes', {
       method: 'DELETE',
       headers: {
-        authorization: `Bearer ${this._token}`,
+        authorization: `Bearer ${jwt}`,
         'Content-Type': 'application/json'
       }
     })

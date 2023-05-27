@@ -71,7 +71,8 @@ function App() {
   }, [loggedIn])
 
   function handleAddPlaceSubmit({ http, place }) {
-    api.setNewCard({ http: http, place: place }).then((res) => {
+    const jwt = localStorage.getItem('jwt');
+    api.setNewCard({ http: http, place: place }, jwt).then((res) => {
       setCards([res, ...cards]);
     }).catch((err) => {
       alert(err);
@@ -79,16 +80,17 @@ function App() {
   }
 
   function handleCardLike(card) {
+    const jwt = localStorage.getItem('jwt');
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     if (!isLiked) {
-      api.addLike(card._id).then((newCard) => {
+      api.addLike(card._id, jwt).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       }).catch((err) => {
         alert(err);
       });
     }
     else {
-      api.deleteLike(card._id).then((newCard) => {
+      api.deleteLike(card._id, jwt).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       }).catch((err) => {
         alert(err);
@@ -124,7 +126,8 @@ function App() {
 
 
   function handleUpdateAvatar(avatar) {
-    api.changeUserAvatar(avatar).then((res) => {
+    const jwt = localStorage.getItem('jwt');
+    api.changeUserAvatar(avatar, jwt).then((res) => {
       setUserInfo(res);
       closeAllPopups()
     }).catch((err) => {
@@ -133,7 +136,8 @@ function App() {
   }
 
   function handleUpdateUser({ name, about }) {
-    api.setUserInfo({ name: name, profession: about }).then((res) => {
+    const jwt = localStorage.getItem('jwt');
+    api.setUserInfo({ name: name, profession: about }, jwt).then((res) => {
       setUserInfo(res);
       closeAllPopups();
     }).catch((err) => {
@@ -142,7 +146,8 @@ function App() {
   }
 
   function handleCardDelete(cardId) {
-    api.deleteCard(cardId).then((res) => {
+    const jwt = localStorage.getItem('jwt');
+    api.deleteCard(cardId, jwt).then((res) => {
       setCards((items) => items.filter((card) => card._id !== cardId))
       closeAllPopups();
     }).catch((err) => {
