@@ -101,27 +101,6 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-// const login = (req, res, next) => {
-//   const { email, password } = req.body;
-//   User.findOne({ email })
-//     .select('+password')
-//     .then((user) => {
-//       if (!user) {
-//         next(new UnauthorizedError('Неправильные почта или пароль'));
-//       }
-//       return bcrypt.compare(password, user.password);
-//       // const token = generateToken({ _id: user.id });
-//       // return res.send({ token });
-//     })
-//     .then((matched) => {
-//       if (!matched) {
-//         next(new UnauthorizedError('Неправильные почта или пароль'));
-//       }
-//       res.send({ token: 'Здесь нужно отправить токен, но мы ещё не научились это делать' });
-//     })
-//     .catch(next);
-// };
-
 const getCurrentUser = (req, res, next) => {
   const userId = req.user._id;
   User.findById(userId)

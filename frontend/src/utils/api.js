@@ -161,6 +161,7 @@ export class Api {
   signUp(email, password) {
     return fetch(this._url + "signup", {
       method: 'POST',
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
@@ -179,6 +180,7 @@ export class Api {
   signIn(email, password) {
     return fetch(this._url + "signin", {
       method: 'POST',
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
