@@ -89,13 +89,27 @@ const updateUserAvatar = (req, res, next) => {
     });
 };
 
-const login = (req, res, next) => {
-  const { email, password } = req.body;
+// const login = (req, res, next) => {
+//   const { email, password } = req.body;
 
-  User.findUserByCredentials(email, password)
+//   User.findUserByCredentials(email, password)
+//     .then((user) => {
+//       const token = generateToken({ _id: user.id });
+//       res.status(OK).send({ token });
+//     })
+//     .catch(next);
+// };
+
+const login = (req, res, next) => {
+  const { email } = req.body;
+  User.findOne({ email })
+    .select('+password')
     .then((user) => {
+      if (!user) {
+        next(new UnauthorizedError('Неправильные почта или пароль'));
+      }
       const token = generateToken({ _id: user.id });
-      res.status(OK).send({ token });
+      return res.send({ token });
     })
     .catch(next);
 };
