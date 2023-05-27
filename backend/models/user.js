@@ -32,14 +32,14 @@ const userSchema = new mongoose.Schema({
       validator: (isValid) => isEmail(isValid),
       message: 'Почта не валидна',
     },
-    password: {
-      required: true,
-      type: String,
-      select: false,
-      minlength: 8,
-    },
   },
-});
+  password: {
+    required: true,
+    type: String,
+    select: false,
+    minlength: 8,
+  },
+}, { versionKey: false });
 
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })

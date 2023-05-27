@@ -55,7 +55,7 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => {
       const userNotPassword = user;
-      // delete userNotPassword.password;
+      delete userNotPassword.password;
       res.status(CREATED).send(userNotPassword);
     })
     .catch(next);
@@ -101,8 +101,7 @@ const login = (req, res, next) => {
 };
 
 const getCurrentUser = (req, res, next) => {
-  const userId = req.user._id;
-  User.findById(userId)
+  User.findById(req.user._id)
     .then((user) => res.status(OK).send(user))
     .catch((e) => {
       if (res.status === 401) {

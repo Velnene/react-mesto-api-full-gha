@@ -47,6 +47,7 @@ function App() {
           }
         })
         .catch((err) => {
+          alert(jwt)
           alert(err);
         });
     }
