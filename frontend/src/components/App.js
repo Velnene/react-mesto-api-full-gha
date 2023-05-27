@@ -53,19 +53,26 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (loggedIn) {
-      api.getUserInfo()
-        .then((res) => {
-          setUserInfo(res);
-        }).catch((err) => {
-          alert(err);
-        });
-      api.initialCards()
-        .then((res) => {
-          setCards(res)
-        }).catch((err) => {
-          alert(err);
-        });
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      console.log(jwt)
+      return;
+    }
+    else {
+      if (loggedIn) {
+        api.getUserInfo(jwt)
+          .then((res) => {
+            setUserInfo(res);
+          }).catch((err) => {
+            alert(err);
+          });
+        api.initialCards(jwt)
+          .then((res) => {
+            setCards(res)
+          }).catch((err) => {
+            alert(err);
+          });
+      }
     }
   }, [loggedIn])
 

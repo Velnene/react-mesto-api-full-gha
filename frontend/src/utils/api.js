@@ -6,10 +6,10 @@ export class Api {
     this._token = localStorage.getItem('jwt');
   }
 
-  getUserInfo() {
+  getUserInfo(jwt) {
     return fetch(this._userUrl, {
       headers: {
-        authorization: `Bearer ${this._token}`
+        authorization: `Bearer ${jwt}`
       }
     })
       .then((res) => {
@@ -65,10 +65,10 @@ export class Api {
       })
   }
 
-  initialCards() {
+  initialCards(jwt) {
     return fetch(this._cardUrl, {
       headers: {
-        authorization: `Bearer ${this._token}`
+        authorization: `Bearer ${jwt}`
       }
     })
       .then((res) => {
