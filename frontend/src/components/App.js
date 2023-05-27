@@ -33,11 +33,7 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      console.log(jwt)
-      return;
-    }
-    else {
+    if (jwt) {
       api.getSign(jwt)
         .then((res) => {
           if (res) {
