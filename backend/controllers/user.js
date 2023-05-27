@@ -55,7 +55,7 @@ const createUser = (req, res, next) => {
     }))
     .then((user) => {
       const userNotPassword = user;
-      delete userNotPassword.password;
+      // delete userNotPassword.password;
       res.status(CREATED).send(userNotPassword);
     })
     .catch(next);
