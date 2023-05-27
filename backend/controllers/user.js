@@ -91,20 +91,7 @@ const updateUserAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  const userSearch = User.findOne({ email })
-    .select('+password')
-    .then((user) => {
-      if (!user) {
-        next(new UnauthorizedError('Неправильные почта или пароль'));
-      }
-      bcrypt.compare(password, user.password)
-        .then((matched) => {
-          if (!matched) {
-            next(new UnauthorizedError('Неправильные почта или пароль'));
-          } return user;
-        });
-    });
-  userSearch
+  User.findUserByCredentials(email, password)
     .then((user) => {
       const token = generateToken({ _id: user.id });
       return res.send({ token });
