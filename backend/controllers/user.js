@@ -95,7 +95,6 @@ const login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = generateToken({ _id: user.id });
-
       return res.status(OK).send({ token });
     })
     .catch(next);
