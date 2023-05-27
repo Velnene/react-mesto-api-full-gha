@@ -54,19 +54,19 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (loggedIn) {
-      api.getUserInfo(jwt)
-        .then((res) => {
-          setUserInfo(res);
-        }).catch((err) => {
-          alert(err);
-        });
-      api.initialCards(jwt)
-        .then((res) => {
-          setCards(res)
-        }).catch((err) => {
-          alert(err);
-        });
+      if (loggedIn) {
+        api.getUserInfo(jwt)
+          .then((res) => {
+            setUserInfo(res);
+          }).catch((err) => {
+            alert(err);
+          });
+        api.initialCards(jwt)
+          .then((res) => {
+            setCards(res)
+          }).catch((err) => {
+            alert(err);
+          });
     }
   }, [loggedIn])
 
@@ -155,11 +155,11 @@ function App() {
     });
   }
 
-  function handleRegister(email, password) {
+  function handleRegister(password, email) {
     if (!password || !email) {
       return;
     }
-    api.signUp(email, password)
+    api.signUp(password, email)
       .then((res) => {
         localStorage.setItem('jwt', res.token);
         navigate('/signin');
@@ -174,19 +174,16 @@ function App() {
       })
   }
 
-  function handleLogin(email, password) {
+  function handleLogin(password, email) {
     if (!password || !email) {
       return;
     }
-    return api.signIn(email, password)
+    api.signIn(password, email)
       .then((res) => {
-        if (res?.token) {
-          localStorage.setItem('jwt', res.token)
-          navigate('/');
-          setLoggedIn(true);
-          setEmail(email);
-          return res;
-        }
+        localStorage.setItem('jwt', res.token)
+        navigate('/');
+        setLoggedIn(true);
+        setEmail(email);
       })
       .catch((err) => {
         setPopupAuthorization(true)

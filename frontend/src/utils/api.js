@@ -158,14 +158,13 @@ export class Api {
       })
   }
 
-  signUp(email, password) {
+  signUp(password, email) {
     return fetch(this._url + "signup", {
       method: 'POST',
-      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ password, email })
     })
       .then((res) => {
         if (res.ok) {
@@ -177,14 +176,13 @@ export class Api {
       })
   }
 
-  signIn(email, password) {
+  signIn(password, email) {
     return fetch(this._url + "signin", {
       method: 'POST',
-      credentials: 'include',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ password, email })
     })
       .then((res) => {
         if (res.ok) {

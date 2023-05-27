@@ -14,7 +14,6 @@ const { userRouter, cardRouter } = require('./routes');
 const app = express();
 app.use(cors({
   origin: ['https://web-15.viktor5211.nomoredomains.monster/',
-    'http://localhost:3001',
     'http://web-15.viktor5211.nomoredomains.monster/',
     'http://web-15.viktor5211.nomoredomains.monster',
     'https://web-15.viktor5211.nomoredomains.monster',

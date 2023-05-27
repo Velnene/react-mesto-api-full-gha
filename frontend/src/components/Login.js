@@ -14,7 +14,7 @@ function Login(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onLogin(email, password)
+    props.onLogin(password, email)
   }
 
   return (

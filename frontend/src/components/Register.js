@@ -14,7 +14,7 @@ function Register(props) {
 
   function handleRegister(e) {
     e.preventDefault();
-    props.onRegister(email, password)
+    props.onRegister(password, email)
   }
 
   return (
