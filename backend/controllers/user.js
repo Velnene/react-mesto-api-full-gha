@@ -96,14 +96,17 @@ const login = (req, res, next) => {
     .select('+password')
     .then((user) => {
       if (!user) {
+        console.log(user);
         next(new UnauthorizedError('Неправильные почта или пароль'));
       }
       bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
+            console.log(user);
             next(new UnauthorizedError('Неправильные почта или пароль'));
           } return user;
         });
+      console.log(user);
     })
     .then((user) => {
       const token = generateToken({ _id: user.id });
