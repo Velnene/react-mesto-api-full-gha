@@ -33,23 +33,17 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      console.log(jwt)
-      return;
-    }
-    else {
-      api.getSign(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setEmail(res.email);
-            navigate('/', { replace: true });
-          }
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+    api.getSign(jwt)
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setEmail(res.email);
+          navigate('/', { replace: true });
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }, []);
 
   useEffect(() => {
