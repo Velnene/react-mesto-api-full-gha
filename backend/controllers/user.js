@@ -55,7 +55,6 @@ const createUser = (req, res, next) => {
       name, about, avatar, email, password: hash,
     }))
     .then((user) => {
-      console.log(user);
       const userNotPassword = user;
       delete userNotPassword.password;
       return res.status(CREATED).send(user);
@@ -96,7 +95,6 @@ const login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = generateToken({ _id: user.id });
-      console.log(token);
       res.status(OK).send({ token });
     })
     .catch(next);
