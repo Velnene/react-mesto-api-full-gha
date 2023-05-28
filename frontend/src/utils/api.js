@@ -196,9 +196,10 @@ export class Api {
 
   getSign(jwt) {
     return fetch(this._userUrl, {
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${jwt}`
+        authorization: `Bearer ${jwt}`
       }
     })
       .then((res) => {
