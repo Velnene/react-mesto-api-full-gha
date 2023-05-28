@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const isEmail = require('validator/lib/isEmail');
 const urlValid = require('../utils/urlValid');
-// const UnauthorizedError = require('../errors/UnauthorizedError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -32,29 +32,28 @@ const userSchema = new mongoose.Schema({
       validator: (isValid) => isEmail(isValid),
       message: 'Почта не валидна',
     },
-    password: {
-      required: true,
-      type: String,
-      select: false,
-      minlength: 8,
-    },
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false,
   },
 });
 
-// userSchema.statics.findUserByCredentials = function (email, password) {
-//   return this.findOne({ email })
-//     .then((user) => {
-//       if (!user) {
-//         throw new UnauthorizedError('Неправильные почта или пароль1');
-//       }
-//       return bcrypt.compare(password, user.password)
-//         .then((matched) => {
-//           if (!matched) {
-//             throw new UnauthorizedError('Неправильные почта или пароль2');
-//           }
-//           return user;
-//         });
-//     });
-// };
+userSchema.statics.findUserByCredentials = function (email, password) {
+  return this.findOne({ email }).select('+password').then((user) => {
+    if (!user) {
+      throw new UnauthorizedError('Неправильные почта или пароль1');
+    }
+    return bcrypt.compare(password, user.password).then((matched) => {
+      if (!matched) {
+        console.log('true');
+        throw new UnauthorizedError('Неправильные почта или пароль2');
+      }
+      console.log('false');
+      return user;
+    });
+  });
+};
 
 module.exports = mongoose.model('user', userSchema);

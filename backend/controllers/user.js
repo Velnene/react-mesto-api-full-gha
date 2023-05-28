@@ -39,24 +39,26 @@ const getUsers = (req, res, next) => {
 
 const createUser = (req, res, next) => {
   const {
-    name, about, avatar, email,
+    name, about, avatar, email, password,
   } = req.body;
-  if (!email) {
+  if (!email || !password) {
     throw new BadRequestError('Поля неверно заполнены');
   }
-  return User.findOne({ email }).then((user) => {
-    if (user) {
-      throw new ConflictError('Email уже зарегистрирован');
-    }
-    bcrypt.hash(req.body.password, 10);
-  })
+  return User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        throw new ConflictError('Email уже зарегистрирован');
+      }
+      return bcrypt.hash(password, 10);
+    })
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
     .then((user) => {
+      console.log(user);
       const userNotPassword = user;
       delete userNotPassword.password;
-      res.status(CREATED).send(userNotPassword);
+      return res.status(CREATED).send(user);
     })
     .catch(next);
 };
@@ -89,33 +91,13 @@ const updateUserAvatar = (req, res, next) => {
     });
 };
 
-// const login = (req, res, next) => {
-//   const { email, password } = req.body;
-
-//   User.findUserByCredentials(email, password)
-//     .then((user) => {
-//       const token = generateToken({ _id: user.id });
-//       res.status(OK).send({ token });
-//     })
-//     .catch(next);
-// };
-
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  User.findOne({ email })
-    .select('+password')
+  User.findUserByCredentials(email, password)
     .then((user) => {
-      if (!user) {
-        next(new UnauthorizedError('Неправильные почта или пароль'));
-      }
-      return bcrypt.compare(password, user.password)
-        .then((matched) => {
-          if (!matched) {
-            throw new UnauthorizedError('Неправильные почта или пароль2');
-          }
-          const token = generateToken({ _id: user.id });
-          return res.send({ token });
-        });
+      const token = generateToken({ _id: user.id });
+      console.log(token);
+      res.status(OK).send({ token });
     })
     .catch(next);
 };
